@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { FaQuoteLeft, FaTwitterSquare } from 'react-icons/fa';
+import { TwitterTweetEmbed } from 'react-twitter-embed'; 
 
 function App() {
   const [quote, setQuote] = useState("");
@@ -15,6 +16,11 @@ function App() {
       setQuote(randomQuote.text);
       setAuthor(randomQuote.author);
     })
+  }
+
+  const tweetQuote = () => {
+    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(quote + "-" + author)}`;
+    window.open(url, '_blank');
   }
   
   useEffect(() => {
@@ -31,7 +37,7 @@ function App() {
           <span className="author text-xl md:text-2xl">{author}</span>
         </div>
         <div className="button-container mt-[15px] flex justify-between">
-          <button className="twitter-btn hover:text-[#313031]" title="Tweet This">
+          <button onClick={tweetQuote} className="twitter-btn hover:text-[#313031]" title="Tweet This">
             <FaTwitterSquare className="text-6xl" />
           </button>
           <button onClick={getNewQuote} className="new-quote cursor-pointer text-xl border-0 rounded-[10px] text-white bg-[#333] outline-0 py-2 px-8 shadow-sm hover:brightness-150 active:-translate-y-3 active:shadow-md">New Quote</button>
